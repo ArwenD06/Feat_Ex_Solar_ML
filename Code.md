@@ -212,6 +212,7 @@ def meaning(prediction, vector_final, sample_numbers):
     * ly -> list with the length of the vertical side of the rectangle
     * rec -> list with tuples, each tuple (x, y) holds the x-coordinate of the bottom left corner of the rectangle and the y-coordinate of the bottom left corner of the rectangle
     * cons -> list with the contours that belong to the asked cluster and asked sample
+
 ```python
 def slices_rect(tuples, sample_number, contours, used_slices):
     nr=[]
@@ -460,7 +461,7 @@ def features(selection, piece):
 ```
 
 
-
+```python
 images = []
 total = []
 bina = []
@@ -477,19 +478,17 @@ while i < 10:
     binb.append(bin1b)
     images.append(image)
     i=i+1
+```
 
 
-
-
+```python
 names = ['Mean', 'Variance', 'Energy', 'Entropy', 'Minimal Grey Level', 'Maximal Grey Level', 'ASM', 'Contrast',
          'Correlation', 'Sum Of Squares Variance', 'Inverse Difference Moment', 'Sum Average', 'Sum Variance', 'Sum Entropy',
          'Entropy', 'Difference Variance', 'Difference Entropy', 'Randomness', 'Dependency', 'Area', 'Perimeter',
          'Eccentricity', 'Extent', 'Solidity', 'Roundness', 'Elongation', 'Ratio perimeter and area']
+```
 
-
-
-
-
+```python
 masks = []
 all_features = []
 sample_number = []
@@ -528,7 +527,7 @@ for date in images:
         except np.linalg.LinAlgError:
             pass
     print('2') 
-
+```
 
 # Histogram of a single sample
 
