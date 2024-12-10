@@ -117,8 +117,12 @@ It's also possible to calculate recall, precision and the accuracy by uncommenti
                     binary_mask3, binary_mask4, binary_mask5 -> binary masks made by different segmentation techniques
     * binary_mask_a, binary_mask_b, binary_mask_total -> ground truths for active regions, coronal holes and both combined respectively
 - Output:
-    * all_dice ->
-    * all_jaccard ->
+    * all_dice -> a list with three sublist, the first sublist gives the dice scores for the comparison of binary_mask_a with the 7 input masks,
+                 the second sublist gives the dice scores for the comparison of binary mask_b with the 7 input masks and
+                  the last sublist gives the dice scores for th comparison of binary_mask_total with the 7 input masks.
+    * all_jaccard -> a list with three sublists, the first sublist gives the jaccard indices for the comparison of binary_mask_a with the 7 input masks,
+                 the second sublist gives the jaccard indices for the comparison of binary mask_b with the 7 input masks and
+                  the last sublist gives the jaccard indices for th comparison of binary_mask_total with the 7 input masks.
 ```python
 def metrics(binary_mask1, binary_mask2l, binary_mask2h, binary_mask2, 
                     binary_mask3, binary_mask4, binary_mask5, binary_mask_a, binary_mask_b, binary_mask_total):
