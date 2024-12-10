@@ -1,3 +1,5 @@
+We need all of the following imports:
+
 ```python
 
 import numpy as np
@@ -36,42 +38,38 @@ import statistics
 
 ```
 
+# Saving and importing data
+We saved our data using following commands.
 
+```python
+np.save("2011_05", selected_header)
+np.save("2011_p05", selected_images)
+```
 
-### Saving and importing data
-
-# We saved out data using following command.
-
-
-
-#np.save("2011_05", selected_header)
-#np.save("2011_p05", selected_images)
-
-
-# We can open the data used by running the code below.
-
+We can open the used data by running the code below.
+```python
 headr = np.load('2015_01.npy', allow_pickle=True).item()
 image = np.load('2015_p01.npy', allow_pickle=True)
+```
 
+Then you can make a sun map or plot the picture by running the following code.
 
-# Then you can make a sun map or plot the picture by running the following code.
-
-
+```python
 my_map = sunpy.map.Map((image, headr))
 
 plt.figure(figsize=(4, 4))
 ax = plt.subplot(projection=my_map)
 my_map.plot()
-
-
-
+```
+```python
 plt.figure(figsize=(4, 4))
 plt.axis('off')
 plt.imshow(image,origin='lower', vmin=0,vmax=1000, cmap='sdoaia193')
+```
 
+# Functions 
 
-### Functions used 
-
+```python
 def different_masks(gray_image):   
     t1 = ski.filters.threshold_otsu(gray_image)
     t2 = ski.filters.threshold_multiotsu(gray_image, 5)
@@ -90,10 +88,10 @@ def different_masks(gray_image):
     mask_min = binary_mask5a*circle
     
     return(mask_otsu, mask_multi_otsu_l, mask_multi_otsu_h, mask_multi_otsu, mask_yen, mask_li, mask_min)
+```
 
 
-
-
+```python
 def metrics(binary_mask1, binary_mask2l, binary_mask2h, binary_mask2, 
                     binary_mask3, binary_mask4, binary_mask5, binary_mask_a, binary_mask_b, binary_mask_total):
 
@@ -152,22 +150,22 @@ def metrics(binary_mask1, binary_mask2l, binary_mask2h, binary_mask2,
         all_jaccard.append(jaccard)
         
     return(all_dice, all_jaccard)
+```
 
 
+#### meaning(prediction, vector_final, sample_numbers)
+Purpose: splitting our data into the clusters
 
+Input: prediction -> list with numbers, prediction[i] = the cluster to which i belongs
+       vector_final -> feature vector
+       sample_numbers -> list with the sample numbers
+Output: klusters -> list with k sublists (k = number of klusters), every sublist j contains tuples for which the 
+                        first element is the sample number of the 'blob', and the second element is the total number of 
+                         the blob
+        feats -> list with k sublists, every sublist j contains the features of the 
+                      'blobs' that are part of kluster j
 
-##### Purpose: splitting our data into the clusters
-
-##### Input: prediction -> list with numbers, prediction[i] = the cluster to which i belongs
-#            vector_final -> feature vector
-#            sample_numbers -> list with the sample numbers
-##### Output: klusters -> list with k sublists (k = number of klusters), every sublist j contains tuples for which the 
-#                        first element is the sample number of the 'blob', and the second element is the total number of 
-#                         the blob
-#             feats -> list with k sublists, every sublist j contains the features of the 
-#                      'blobs' that are part of kluster j
-
-
+```python
 def meaning(prediction, vector_final, sample_numbers):
     num_klus = max(prediction) +1
     nums = list(set(prediction))
@@ -184,23 +182,23 @@ def meaning(prediction, vector_final, sample_numbers):
                 i=i+1
 
     return klusters, feats
+```
 
 
+#### slices_rect(tuples, sample_number, contours, used_slices)
+Purpose: finding the rectangles and contours that belong to a certain sample number i and cluster k
 
-
-##### Purpose: finding the rectangles and contours that belong to a certain sample number i and cluster k
-
-##### Input: tuples -> list with tuples from one cluster, example: one sublist obtained from the output klusters from the
-#                       function meaning
-#            sample_number -> sample sumber for which we want a visualisation 
-#            contours -> list with all the contours of all the 'blobs', can be obtained from the finding_contour function
-#            used_slices -> list of all the slices used to obtain the 'blobs' 
-##### Output: lx -> list with the length of the horizontal side of the rectangle
-#             ly -> list with the length of the vertical side of the rectangle
-#             rec -> list with tuples, each tuple (x, y) holds the x-coordinate of the bottom left corner of the rectangle
-#                    and the y-coordinate of the bottom left corner of the rectangle
-#             cons -> list with the contours that belong to the asked cluster and asked sample
-
+Input: tuples -> list with tuples from one cluster, example: one sublist obtained from the output klusters from the
+                       function meaning
+            sample_number -> sample sumber for which we want a visualisation 
+            contours -> list with all the contours of all the 'blobs', can be obtained from the finding_contour function
+            used_slices -> list of all the slices used to obtain the 'blobs' 
+Output: lx -> list with the length of the horizontal side of the rectangle
+             ly -> list with the length of the vertical side of the rectangle
+             rec -> list with tuples, each tuple (x, y) holds the x-coordinate of the bottom left corner of the rectangle
+                    and the y-coordinate of the bottom left corner of the rectangle
+             cons -> list with the contours that belong to the asked cluster and asked sample
+```python
 def slices_rect(tuples, sample_number, contours, used_slices):
     nr=[]
     rec = []
@@ -219,15 +217,16 @@ def slices_rect(tuples, sample_number, contours, used_slices):
             rec.append((x,y))
             
     return lx, ly, rec, cons
+```
 
 
+#### zero_border(arr)
+Purpose: creating a border of zeros around a 'blob'
 
+Input: arr -> a numpy array representing the 'blob'
+Output: c -> the 'blob' with a border of zeros around it
 
-##### Purpose: creating a border of zeros around a 'blob'
-
-##### Input: arr -> a numpy array representing the 'blob'
-##### Output: c -> the 'blob' with a border of zeros around it
-
+```python
 def zero_border(arr):
     aa = np.insert(arr, 0, 0, axis=1)
     aaa = np.insert(aa, len(aa[0]), 0, axis=1)
@@ -235,16 +234,16 @@ def zero_border(arr):
     b = np.insert(aaa, 0, zero, axis=0)
     c = np.append(b, [zero], axis=0)
     return c
+```
 
 
+#### finding_contour(piece, sliced)
+Purpose: finding the contour of a certain 'blob'
 
+Input: piece -> the 'blob' you want to find the contour of, represented as a numpy array
+Output : contour -> the contour of the 'blob'
 
-##### Purpose: finding the contour of a certain 'blob'
-
-##### Input: piece -> the 'blob' you want to find the contour of, represented as a numpy array
-##### Output : contour -> the contour of the 'blob'
-
-
+```python
 def finding_contour(piece, sliced):
     zer_piec = zero_border(piece)
     contours = measure.find_contours(zer_piec, 0.8)
@@ -261,11 +260,14 @@ def finding_contour(piece, sliced):
         coor[0] = coor[0] + y
         coor[1] = coor[1] + x
     return contours
+```
 
+For the following funtions to work properly, you need to run the following code. 'You need the file 'circle.png' for this.
 
-
+```python
 circle1 = cv.imread('circle.png', 0)
 circle = circle1 > 0.5
+```
 
 ##### Purpose: making the binary mask of a sample
 
