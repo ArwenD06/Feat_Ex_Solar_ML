@@ -1,3 +1,5 @@
+# Imports
+
 We need all of the following imports:
 
 ```python
@@ -69,6 +71,7 @@ plt.imshow(image,origin='lower', vmin=0,vmax=1000, cmap='sdoaia193')
 
 # Functions 
 
+### different_masks(gray_image)
 ```python
 def different_masks(gray_image):   
     t1 = ski.filters.threshold_otsu(gray_image)
@@ -90,7 +93,17 @@ def different_masks(gray_image):
     return(mask_otsu, mask_multi_otsu_l, mask_multi_otsu_h, mask_multi_otsu, mask_yen, mask_li, mask_min)
 ```
 
+### metrics(binary_mask1, binary_mask2l, binary_mask2h, binary_mask2, binary_mask3, binary_mask4, binary_mask5, binary_mask_a, binary_mask_b, binary_mask_total)
+- Purpose: calculating the jaccard index and dice score for several segmentation methods
+It's also possible to calculate recall, precision and the accuracy by uncommenting them
 
+- Input:
+    * binary_mask1, binary_mask2l, binary_mask2h, binary_mask2, 
+                    binary_mask3, binary_mask4, binary_mask5 -> binary masks made by different segmentation techniques
+    * binary_mask_a, binary_mask_b, binary_mask_total -> ground truths for active regions, coronal holes and both combined respectively
+- Output:
+    * all_dice ->
+    * all_jaccard ->
 ```python
 def metrics(binary_mask1, binary_mask2l, binary_mask2h, binary_mask2, 
                     binary_mask3, binary_mask4, binary_mask5, binary_mask_a, binary_mask_b, binary_mask_total):
@@ -153,17 +166,17 @@ def metrics(binary_mask1, binary_mask2l, binary_mask2h, binary_mask2,
 ```
 
 
-#### meaning(prediction, vector_final, sample_numbers)
-Purpose: splitting our data into the clusters
+### meaning(prediction, vector_final, sample_numbers)
+- Purpose: splitting our data into the clusters
 
-Input: prediction -> list with numbers, prediction[i] = the cluster to which i belongs
-       vector_final -> feature vector
-       sample_numbers -> list with the sample numbers
-Output: klusters -> list with k sublists (k = number of klusters), every sublist j contains tuples for which the 
-                        first element is the sample number of the 'blob', and the second element is the total number of 
-                         the blob
-        feats -> list with k sublists, every sublist j contains the features of the 
-                      'blobs' that are part of kluster j
+- Input: 
+    * prediction -> list with numbers, prediction[i] = the cluster to which i belongs  
+    * vector_final -> feature vector  
+    * sample_numbers -> list with the sample numbers
+
+- Output:
+    * klusters -> list with k sublists (k = number of klusters), every sublist j contains tuples for which the first element is the sample number of the 'blob', and the second element is the total number of the blob
+    * feats -> list with k sublists, every sublist j contains the features of the 'blobs' that are part of kluster j
 
 ```python
 def meaning(prediction, vector_final, sample_numbers):
@@ -185,19 +198,20 @@ def meaning(prediction, vector_final, sample_numbers):
 ```
 
 
-#### slices_rect(tuples, sample_number, contours, used_slices)
-Purpose: finding the rectangles and contours that belong to a certain sample number i and cluster k
+### slices_rect(tuples, sample_number, contours, used_slices)
+- Purpose: finding the rectangles and contours that belong to a certain sample number i and cluster k
 
-Input: tuples -> list with tuples from one cluster, example: one sublist obtained from the output klusters from the
-                       function meaning
-            sample_number -> sample sumber for which we want a visualisation 
-            contours -> list with all the contours of all the 'blobs', can be obtained from the finding_contour function
-            used_slices -> list of all the slices used to obtain the 'blobs' 
-Output: lx -> list with the length of the horizontal side of the rectangle
-             ly -> list with the length of the vertical side of the rectangle
-             rec -> list with tuples, each tuple (x, y) holds the x-coordinate of the bottom left corner of the rectangle
-                    and the y-coordinate of the bottom left corner of the rectangle
-             cons -> list with the contours that belong to the asked cluster and asked sample
+- Input:
+    * tuples -> list with tuples from one cluster, example: one sublist obtained from the output klusters from the function meaning
+    * sample_number -> sample sumber for which we want a visualisation 
+    *  contours -> list with all the contours of all the 'blobs', can be obtained from the finding_contour function
+    *  used_slices -> list of all the slices used to obtain the 'blobs'
+
+- Output:
+    * lx -> list with the length of the horizontal side of the rectangle
+    * ly -> list with the length of the vertical side of the rectangle
+    * rec -> list with tuples, each tuple (x, y) holds the x-coordinate of the bottom left corner of the rectangle and the y-coordinate of the bottom left corner of the rectangle
+    * cons -> list with the contours that belong to the asked cluster and asked sample
 ```python
 def slices_rect(tuples, sample_number, contours, used_slices):
     nr=[]
@@ -220,11 +234,13 @@ def slices_rect(tuples, sample_number, contours, used_slices):
 ```
 
 
-#### zero_border(arr)
-Purpose: creating a border of zeros around a 'blob'
+### zero_border(arr)
+- Purpose: creating a border of zeros around a 'blob'
 
-Input: arr -> a numpy array representing the 'blob'
-Output: c -> the 'blob' with a border of zeros around it
+- Input:
+    * arr -> a numpy array representing the 'blob'
+- Output:
+    * c -> the 'blob' with a border of zeros around it
 
 ```python
 def zero_border(arr):
@@ -237,11 +253,13 @@ def zero_border(arr):
 ```
 
 
-#### finding_contour(piece, sliced)
-Purpose: finding the contour of a certain 'blob'
+### finding_contour(piece, sliced)
+- Purpose: finding the contour of a certain 'blob'
 
-Input: piece -> the 'blob' you want to find the contour of, represented as a numpy array
-Output : contour -> the contour of the 'blob'
+- Input:
+    * piece -> the 'blob' you want to find the contour of, represented as a numpy array
+- Output:
+    * contour -> the contour of the 'blob'
 
 ```python
 def finding_contour(piece, sliced):
@@ -262,18 +280,22 @@ def finding_contour(piece, sliced):
     return contours
 ```
 
-For the following funtions to work properly, you need to run the following code. 'You need the file 'circle.png' for this.
+# !!
+For the following funtions to work properly, you need to run the following code. You need the file 'circle.png' for this.
 
 ```python
 circle1 = cv.imread('circle.png', 0)
 circle = circle1 > 0.5
 ```
+### making_mask(gray_image)
+- Purpose: making the binary mask of a sample
 
-##### Purpose: making the binary mask of a sample
+- Input:
+    * gray_image -> the grey-scale image you want to make a mask of
+- Output:
+    * binary_mask -> the binary mask
 
-##### Input: gray_image -> the grey-scale image you want to make a mask of
-##### Output: binary_mask -> the binary mask
-
+```python
 def making_mask(gray_image):
     t = ski.filters.threshold_multiotsu(gray_image, 5)
 
@@ -284,15 +306,18 @@ def making_mask(gray_image):
     binary_mask = binary_maskl + binary_maskh
     
     return(binary_mask)
+```
 
 
+### make_bin_without_noise(binary_mask)
+- Purpose: removing the noise from a binary mask
 
+- Input:
+    * binary_mask -> the binary mask you want to remove the noise of
+- Output:
+    * w_noise-> the binary mask without noise
 
-##### Purpose: removing the noise from a binary mask
-
-##### Input: binary_mask -> the binary mask you want to remove the noise of
-##### Output: w_noise-> the binary mask without noise
-
+```python
 def make_bin_without_noise(binary_mask):
     mask_bin = np.zeros((len(binary_mask), len(binary_mask[0])))
 
@@ -307,30 +332,36 @@ def make_bin_without_noise(binary_mask):
     
     w_noise = ski.filters.median(mask_bin)
     return w_noise
+```
 
+### finding_slices(w_noise)
+- Purpose: finding the slices to obtain every 'blob'
 
+- Input:
+    * w_noise -> the binary mask of your sample without noise
+- Output:
+    * slices -> a list with slices, every slice in this list gives you a 'blob'
 
-##### Purpose: finding the slices to obtain every 'blob'
-
-##### Input: w_noise -> the binary mask of your sample without noise
-##### Output: slices -> a list with slices, every slice in this list gives you a 'blob'
-
+ ```python
 def finding_slices(w_noise):
     labeled_array, num_features = ndimage.label(w_noise)
     slices = ndimage.find_objects(labeled_array)
     return slices
+```
 
 
+### comps(sliced, gray_image, w_noise)
+- Purpose: removing the noise from a binary mask
 
+- Input:
+    * sliced -> the slice that gives you the current 'blob'
+    * gray_image -> the grey-scale images of the sample you're working with
+    * w_noise -> the binary mask, without noise of the sample you're working with
+- Output:
+    * piece -> a binary mask of our 'blob', in a bounding box
+    * selection -> the 'blob' in grey scale, with zeros on the pixels that don't belong to the 'blob', in a bounding box
 
-##### Purpose: removing the noise from a binary mask
-
-##### Input: sliced -> the slice that gives you the current 'blob'
-#            gray_image -> the grey-scale images of the sample you're working with
-#            w_noise -> the binary mask, without noise of the sample you're working with
-##### Output: piece -> a binary mask of our 'blob', in a bounding box
-#             selection -> the 'blob' in grey scale, with zeros on the pixels that don't belong to the 'blob', in a bounding box
-
+```python
 def comps(sliced, gray_image, w_noise):
     piece = w_noise[sliced] # binair gesliced masker
 
@@ -339,30 +370,36 @@ def comps(sliced, gray_image, w_noise):
 
     selection = segmented[sliced] # geslicede gray-scale image, nullen op de stukken die we niet nodig hebben
     return piece, selection
+```
 
+### roundness(area, perimeter)
+- Purpose: calculation the roundness of a 'blob'
+roundness = (4*pi*area)/perimeter^2
 
+- Input:
+    * area -> the area of the 'blob'
+    * perimeter -> the perimeter of the 'blob'
+- Output:
+    * roundness -> the roundness of the 'blob'
 
-##### Purpose: calculation the roundness of a 'blob'
-# roundness = (4*pi*area)/perimeter^2
-
-##### Input: area -> the area of the 'blob'
-#            perimeter -> the perimeter of the 'blob'
-##### Output: roundness -> the roundness of the 'blob'
-
+```python
 def roundness(area, perimeter):
     roundness = 4*np.pi*area/perimeter**2
     return roundness
+```
 
 
+### elongation(piece)
+- Purpose: calculating the elongation of a 'blob'
+enlongation = d_l/d_s, where d_l is the length of the longest side of the bounding box, 
+                and d_s is the shortest side of the bounding box
 
+- Input:
+    * piece -> a binary mask of our 'blob', in a bounding box
+- Output:
+    * elongation -> the elongationg of the 'blob'
 
-##### Purpose: calculating the elongation of a 'blob'
-# enlongation = d_l/d_s, where d_l is the length of the longest side of the bounding box, 
-#                and d_s is the shortest side of the bounding box
-
-##### Input: piece -> a binary mask of our 'blob', in a bounding box
-##### Output: elongation -> the elongationg of the 'blob'
-
+ ```python
 def elongation(piece):
     if len(piece[0]) >= len(piece):
         d_l = len(piece[0])
@@ -373,28 +410,34 @@ def elongation(piece):
 
     elongation = d_l/d_s
     return elongation
+```
 
+### peri_on_area(area, perimeter)
+- Purpose: calculation the ratio of the perimeter and area
 
+- Input:
+    * area -> the area of the 'blob'
+    * perimeter -> the perimeter of the 'blob'
+- Output:
+    * ratio_peri_ar -> the ratio of the perimeter and area
 
-##### Purpose: calculation the ratio of the perimeter and area
-
-##### Input: area -> the area of the 'blob'
-#            perimeter -> the perimeter of the 'blob'
-##### Output: ratio_peri_ar -> the ratio of the perimeter and area
-
+ ```python
 def peri_on_area(area, perimeter):
     ratio_peri_ar = perimeter / area
     return ratio_peri_ar
+```
 
 
+### features(selection, piece)
+- Purpose: calculation of all the features for a 'blob'
 
+- Input:
+    * selection -> our 'blob' in grey scale, with zeros on the pixels that don't belong to the 'blob', in a bounding box  
+    * piece -> a binary mask of our 'blob', in a bounding box
+- Output:
+    * feature -> a numpy array of length 27, with all the features   
 
-##### Purpose: calculation of all the features for a 'blob'
-
-##### Input: selection -> our 'blob' in grey scale, with zeros on the pixels that don't belong to the 'blob', in a bounding box
-#            piece -> a binary mask of our 'blob', in a bounding box
-##### Output: feature -> a numpy array of length 27, with all the features 
-
+```python
 def features(selection, piece):
     piece_int = piece.astype(np.int32)
     features1, labels1 = pf.fos(selection, piece)
@@ -414,7 +457,7 @@ def features(selection, piece):
     feature = np.append(feature,elongation(piece))
     feature = np.append(feature,peri_on_area(features2[0]['area'], features2[0]['perimeter']))
     return feature
-
+```
 
 
 
@@ -487,12 +530,14 @@ for date in images:
     print('2') 
 
 
-# ## Histogram of a single sample
+# Histogram of a single sample
 
-# Choose the sample you want a histogram of.
-
+Choose the sample you want a histogram of.
+```python
 image = np.load('2012_p01.npy', allow_pickle=True)
+```
 
+```python
 plt.figure(figsize=(5,5))
 plt.axis('off')
 plt.imshow(image, vmin=0,vmax=1000, cmap='sdoaia193')
@@ -510,21 +555,17 @@ ax.set_xlabel("gray value")
 ax.set_ylabel("pixel count")
 ax.set_xlim(0, 1.0)
 
-
-# ### Trying different segmentation techniques
-
-
-
+```
+# Trying different segmentation techniques
+```python
 ski.filters.try_all_threshold(gray_image, figsize=(8, 5), verbose=True)
+```
 
+# Segmentation Evaluation
 
-# ## Segmentation Evaluation
+Can be combined with the making of the feature vector, but the following code takes a while to run, so if it's not needed, you can skip the next cell.
 
-# Can be combined with the making of the feature vector, but the following code takes a while to run, so if it's not needed, 
-# you can skip the next cell.
-
-
-
+```python
 bin_high_dice = []
 bin_low_dice = []
 bin_tot_dice = []
@@ -564,17 +605,17 @@ for date in images:
     bin_tot_jacc.append(all_jaccard[2])
     
     i=i+1
+```
 
-
-
+```python
 scores = {'Otsu': [], 'Multiple Otsu Higher': [], 'Yen':[], 'Li':[],
         'Minimum without Background': [], 'Multiple Otsu Lower without Background': [], 'Multiple Otsu Total nb': [] }
 
 methods = ["Otsu", "Multiple Otsu Lower without Background", "Multiple Otsu Higher", 
                "Multiple Otsu Total nb", "Yen", "Li", "Minimum without Background"]
+```
 
-
-
+```python
 for key in scores:
     index = methods.index(key)
     if key in ['Otsu', 'Multiple Otsu Higher', 'Yen', 'Li']:
@@ -589,64 +630,49 @@ for key in scores:
         lst_d = [bin_tot_dice[i][index] for i in range(0,3)]
         lst_j = [bin_tot_jacc[i][index] for i in range(0,3)]
         scores[key] = [round(statistics.mean(lst_d), 6), round(statistics.mean(lst_j), 6)]
+```
 
-
-# ## Making a dataframe of the feature vector
-
-
-
-
+# Making a dataframe of the feature vector
+```python
 X = pd.DataFrame(all_features)
-X
+```
 
-
-# ## Removing features & standardizing
-
-# Standardising the data: 
-
-
-
+# Removing features & standardizing
+Standardising the data: 
+```python
 feats_all = all_features.copy()
 stan = StandardScaler().fit(feats_all)
 feats_stan_all = stan.transform(feats_all) #full standardized feature vector
+```
+Removing correlated features of original feature vector:
 
-
-# Removing correlated features of original feature vector:
-
+```python
 copy1_vector_final = all_features.copy()
 vector_non_stan = np.delete(copy1_vector_final, [6,11,13,14,16], 1)
-
-
-# Removing correlated features from standardized feature vector.
-
-
-
-
+```
+Removing correlated features from standardized feature vector.
+```python
 copy1_feats_stan_all = feats_stan_all.copy()
 feats_final = np.delete(copy1_feats_stan_all, [6,11,13,14,16], 1)
+```
 
-
-# Removing the names of the features that we don't use anymore.
-
+Removing the names of the features that we don't use anymore.
+```python
 names_1 = names.copy()
 names_final = np.delete(names_1, [6,11,13,14,16], 0)
+```
 
-
-# ## Correlation Matrix
-
-
-
-
+# Correlation Matrix
+```python
 matrix_all = np.transpose(feats_stan_all)
 corr_matrix_all = np.corrcoef(matrix_all)
 
 matrix_final = np.transpose(feats_final)
 corr_matrix_final = np.corrcoef(matrix_final)
+```
 
 
-
-
-
+```python
 ticks_all = tuple(range(0,len(matrix_all)))
 labels_all = tuple(range(1,len(matrix_all)+1))
 
@@ -670,95 +696,75 @@ cbar1 = ax1.figure.colorbar(im1, ax=ax1, format='% .2f', shrink=.85, pad=.05, as
 cbar2 = ax2.figure.colorbar(im2, ax=ax2, format='% .2f', shrink=.85, pad=.05, aspect=8)
 
 plt.show()
+```
 
+#t-SNE plots
 
-# ## t-SNE plots
-
-
-
-
+```python
 X_c = feats_final.copy()
 
 tsne = TSNE(n_components=2, random_state=100)
 
 # Fit and transform the data
 X_tsne = tsne.fit_transform(X_c)
+```
 
-
-
-
-
+```python
 Y = sample_number
 
-# Create a scatter plot
 plt.figure(figsize=(8, 6))
 #scatter = plt.scatter(X_tsne_all[:, 0], X_tsne_all[:, 1], c='0.1', cmap='viridis')
 #scatter1 = plt.scatter(X_tsne_orig[:, 0], X_tsne_orig[:, 1], c='0.5', cmap='viridis')
 scatter2 = plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=Y, cmap='viridis')
 
-# Add a legend
 plt.legend(*scatter2.legend_elements(num=19), title="Sample Number",bbox_to_anchor=(1.25, 1), loc='upper right')
 plt.title("t-SNE Visualization of Dataset")
 plt.xlabel("t-SNE Component 1")
 plt.ylabel("t-SNE Component 2")
 plt.show()
+```
 
+#PCA plots
 
-# ## PCA plots
-
-
-
-
+```python
 X_comp1 = feats_final.copy()
 
 pca = PCA(n_components=2, random_state=56)
 
 # Fit and transform the data
 X_pca = pca.fit_transform(X_comp1)
+```
 
-
-
-
-
+```python
 Y = sample_number
-#Y = vector_all[:,-4]
 
-# Create a scatter plot
 plt.figure(figsize=(8, 6))
 #scatter = plt.scatter(x=X_pca_all[:, 0], y=X_pca_all[:, 1], c='0.1')
 #scatter1 = plt.scatter(x=X_pca_orig[:, 0], y=X_pca_orig[:, 1], c='0.5')
 scatter2 = plt.scatter(x=X_pca[:, 0], y=X_pca[:, 1], c=Y)
 
-# Add a legend
 plt.legend(*scatter2.legend_elements(num=19), title="Sample Number", bbox_to_anchor=(1.25, 1), loc='upper right')
 plt.title("PCA Visualization of Dataset")
 plt.xlabel("PCA Component 1")
 plt.ylabel("PCA Component 2")
 plt.show()
+```
 
+# K-means
 
-# ## K-means
-
-# Choose number of clusters:
-
-
-
-
+Choose the number of clusters you want:
+```python
 n = 5
-prediction = 'predictions' + str(n)
+```
 
-
-# #### t-SNE
-
-
-
-
+## t-SNE
+```python
 trainData = X_tsne[:100]   # Momenteel gwn random om te testen
-kmeans = KMeans(n_clusters=3, random_state=3).fit(trainData)
-predictions3 = kmeans.predict(X_tsne[100:])
+kmeans = KMeans(n_clusters=n, random_state=3).fit(trainData)
+prediction_tsne = kmeans.predict(X_tsne[100:])
 
 plt.figure(figsize=(8, 6))
-scatter = plt.scatter(X_tsne[100:, 0], X_tsne[100:, 1], c=predictions3, cmap='gist_rainbow')
+scatter = plt.scatter(X_tsne[100:, 0], X_tsne[100:, 1], c=prediction_tsne, cmap='gist_rainbow')
 #scatter2 = plt.scatter(X_tsne[:100, 0], X_tsne[:100, 1], c=kmeans.labels_, cmap='viridis')
 
 
@@ -767,19 +773,16 @@ plt.title("Clusters formed based on t-SNE components using K-means clustering")
 plt.xlabel("t-SNE Component 1")
 plt.ylabel("t-SNE Component 2")
 plt.show()
+```
 
-
-# #### PCA
-
-
-
-
+## PCA
+```python
 trainData_pca = X_pca[:100]   # Momenteel gwn random om te testen
 kmeans = KMeans(n_clusters=n, random_state=57).fit(trainData_pca)
-prediction = kmeans.predict(X_pca[100:])
+prediction_pca = kmeans.predict(X_pca[100:])
 
 plt.figure(figsize=(8, 6))
-scatter = plt.scatter(X_pca[100:, 0], X_pca[100:, 1], c=prediction, cmap='gist_rainbow')
+scatter = plt.scatter(X_pca[100:, 0], X_pca[100:, 1], c=prediction_pca, cmap='gist_rainbow')
 #scatter2 = plt.scatter(X_pca[:100, 0], X_pca[:100, 1], c=kmeans.labels_, cmap='viridis')
 
 
@@ -788,16 +791,18 @@ plt.title("Clusters formed based on PCA components using K-means clustering")
 plt.xlabel("PCA Component 1")
 plt.ylabel("PCA Component 2")
 plt.show()
+```
 
+# Meaning of the clusters
+Choose for which data you want the visualizations, put the other one in a comment.
+```python
+prediction = prediction_tsne
+prediction = prediction_pca
+```
 
-# ## Meaning of the clusters
-
-# ### Histograms
-
-
-
-
-_, feats = meaning(predictions6, feats_final, sample_number)
+## Histograms
+```python
+_, feats = meaning(prediction, feats_final, sample_number)
 alp = [1, 0.85, 0.65, 0.45, 0.25, 0.1]
 
 plt.figure(figsize=(10, 15)) 
@@ -810,14 +815,11 @@ for i in range(0, 22):
     plt.xlabel('Feature range')
     plt.ylabel("Amount")  
     plt.tight_layout()
+```
 
-
-# ### Numerical
-
-
-
-
-_, feats = meaning(predictions6, feats_final, sample_number)
+## Numerical
+```python
+_, feats = meaning(prediction, feats_final, sample_number)
 
 means = []
 ranges = []
@@ -834,20 +836,15 @@ while i < len(feats):
     means.append(m)
     ranges.append(r)
     i=i+1
-
-
-
-
-
+```
+Putting the means and the ranges of all of the features in a dataframe to make them visually clear.
+```python
 d_means = pd.DataFrame(np.transpose(means))
 d_ranges = pd.DataFrame(np.transpose(ranges))
+```
 
-
-# ### Visual on a sample
-
-
-
-
+## Visual of a sample
+```python
 image1 = np.load('2012_p01.npy', allow_pickle=True)
 plt.imsave('img1.png', image1, origin='lower', vmin=0,vmax=1000, cmap='sdoaia193', dpi=100)
 
@@ -871,16 +868,17 @@ for j in range(0, n):
     lx, ly, rec, cons = slices_rect(klusters[j], 5, contours, used_slices)
     for contour in cons:
         ax2.plot(contour[0][:, 1], contour[0][:, 0], linewidth=2, c=cmap(j))
+```
 
+## Applying the Kneedle method
+Choose for which data you want to determine the Kneedle point, for the PCA or the t-SNE, uncomment that one and put the other one in a comment.
 
-# ## Applying the Kneedle method
-
-
-
-
+```python
 data = X_pca
 #data = X_tsne
+```
 
+```python
 sse = []
 list_k = list(range(2, 10))
 
@@ -899,33 +897,24 @@ plt.plot(list_k, sse, '-o')
 plt.axvline(kneedle.elbow, ls='--', c='0.5')
 plt.xlabel('Number of clusters')
 plt.ylabel('Sum of squared distance');
+```
 
+# 3D plots
 
-# # 3D plots
-
-# For the 3D plots you need to run the following line first.
-
-
-
-
+For the 3D plots you need to run the following line first.
+```python
 get_ipython().run_line_magic('matplotlib', 'widget')
+```
 
-
-# ## 3D plot PCA
-
-
-
-
+## 3D plot PCA
+```python
 X_c3 = feats_final.copy()
 
 pca = PCA(n_components=3)
 
 X_pca_3d = pca.fit_transform(X_c3)
-
-
-
-
-
+```
+```python
 fig_pca = px.scatter_3d(X_pca_3d,
                     x=X_pca_3d[:,0],
                     y=X_pca_3d[:,1],
@@ -939,32 +928,23 @@ fig_pca = px.scatter_3d(X_pca_3d,
                     )
 
 fig_pca.show()
-
-
-# If you want to export the plot to html, uncomment the next line.
-
-
-
-
+```
+If you want to export the plot to html, run the next line.
+```python
 fig_pca.write_html('PCA_final.html')
+```
 
-
-# ## 3D plot t-SNE
-
-
-
-
+## 3D plot t-SNE
+```python
 X_c_3 = feats_final.copy()
 
 tsne = TSNE(n_components=3, random_state=42) 
 
 # Fit and transform the data
 X_tsne_3d = tsne.fit_transform(X_c_3)
+```
 
-
-
-
-
+```python
 fig_tsne = px.scatter_3d(X_tsne_3d,
                     x=X_tsne_3d[:,0],
                     y=X_tsne_3d[:,1],
@@ -976,23 +956,16 @@ fig_tsne = px.scatter_3d(X_tsne_3d,
                     labels={'x':'t-SNE component 1','y':'t-SNE component 2','z':'t-SNE component 3'},
                     color_continuous_scale='viridis'
                     )
-
 fig_tsne.show()
+```
 
-
-# If you want to export the plot to html, uncomment the next line.
-
-
-
-
+If you want to export the plot to html, run the next line.
+```
 fig_tsne.write_html('tsne_final.html')
+```
 
-
-# ## 3D plot correlation
-
-
-
-
+## 3D plot correlation
+```python
 vector = feats_stan_all
 
 fig_corr = px.scatter_3d(vector,
@@ -1008,11 +981,10 @@ fig_corr = px.scatter_3d(vector,
                     )
 
 fig_corr.show()
+```
 
+If you want to export the plot to html, run the next line.
 
-# If you want to export the plot to html, uncomment the next line.
-
-
-
-
+```python
 fig_corr.write_html('corr.html')
+```
