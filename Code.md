@@ -712,7 +712,7 @@ cbar2 = ax2.figure.colorbar(im2, ax=ax2, format='% .2f', shrink=.85, pad=.05, as
 plt.show()
 ```
 
-#t-SNE plots
+# t-SNE plots
 
 ```python
 X_c = feats_final.copy()
@@ -738,7 +738,7 @@ plt.ylabel("t-SNE Component 2")
 plt.show()
 ```
 
-#PCA plots
+# PCA plots
 
 ```python
 X_comp1 = feats_final.copy()
