@@ -9,7 +9,7 @@ We have processed images, starting by creating histograms. After this, we worked
 After the segmentation, we can study our separated regions. We do this using feature ex- traction, a technique where you calculate many different features. These describe things like shape, area and intensity. We have defined many different features, combined in a feature vector. Using this vector, we can start with machine learning.
 Before we put these function vectors in algorithms, we have to carry through a few more changes. We start by standardising all features and computing their correlation. Features that are correlated can be reduced into one feature. After this, we used PCA and t-SNE to reduce the dimension of our features. Lastly, we used K-means clustering to group our segmented regions based on the previous calculated features, each cluster will represent a different kind of region of our Sun.
 
-## Stat of the Art
+## State of the Art
 In our bachelor project we set out to study the sun, using simple operations and light machine learning techniques. There are already very successful frameworks that can achieve this, but they use heavy deep learning algorithms, like Convolutional Neural Networks (CNN). In this research they developed SCSS-net [16]. The U-net deep learning architecture has also been applied in solar physics, but they have encountered limitations because of GPU requirements [34]. Though effective, these algorithms require significant computational resources and time. We aim to get similar results with simpler, yet efficient methods.
 
 ## The Data
