@@ -80,7 +80,7 @@ https://towardsdatascience.com/t-sne-clearly-explained-d84c537f53a.
 [8] Galvez, R., Fouhey, D. F., Jin, M., Szenicer, A., Mun ̃oz-Jaramillo, A., Cheung, M. C. M., Wright, P. J., Bobra, M. G., Liu, Y., Mason, J., and Thomas, R. A Machine-learning Data Set Prepared from the NASA Solar Dynamics Observatory Mission. Astrophysical Journal Supplement Series 242, 1 (May 2019), 7.
 [9] Giakoumoglou, N. G. pyfeats: Image feature extraction tool. Tech. rep., 7 2021. Accessed: 2024-11-16.
 [10] Glasbey, C. An analysis of histogram-based thresholding algorithms. CVGIP: Graphical Models and Image Processing 55, 6 (1993), 532–537.
-[11] Haigh, J. D., Lockwood, M. M., Giampapa, M. S. M. S., and fur Astro- physik und Astronomie., S. G. The sun, solar analogs and the climate, 1st ed. 2005. ed. Saas-Fee advanced course ... lecture notes ; 2004. Springer-Verlag, Berlin, 2005.
+[11] Haigh, J. D., Lockwood, M. M., Giampapa, M. S. M. S., and fur Astro- physik und Astronomie., S. G. The sun, solar analogs and the climate, 1st ed. 2005. ed. Saas-Fee advanced course lecture notes ; 2004. Springer-Verlag, Berlin, 2005.
 [12] James Mason, P. W. Sdo machine learning dataset, 2024. Accessed: 2024-11-15. 87
 88 BIBLIOGRAPHY
 [13] Jolliffe, I. T., and Cadima, J. Principal component analysis: A review and recent developments. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 374, 2065 (Apr 2016), 20150202.
@@ -98,8 +98,6 @@ https://towardsdatascience.com/t-sne-clearly-explained-d84c537f53a.
 [25] Powers, D. M. W. Evaluation: from precision, recall and F-measure to ROC, in-
 formedness, markedness and correlation. arXiv e-prints (Oct. 2020), arXiv:2010.16061.
 [26] Reiss, M., Temmer, M., Rotter, T., Hofmeister, S. J., and Veronig, A. M. Identification of coronal holes and filament channels in SDO/AIA 193 ̊A images via geometrical classification methods. Central European Astrophysical Bulletin 38 (Jan. 2014), 95–104.
-
-BIBLIOGRAPHY 89
 [27] Satopaa, V., Albrecht, J., Irwin, D., and Raghavan, B. Finding a ”kneedle” in a haystack: Detecting knee points in system behavior. In 2011 31st International Conference on Distributed Computing Systems Workshops (June 2011), pp. 166–171.
 [28] Schou, J., Scherrer, P. H., Bush, R. I., Wachter, R., Couvidat, S., Rabello-Soares, M. C., Bogart, R. S., Hoeksema, J. T., Liu, Y., Duvall, T. L., Akin, D. J., Allard, B. A., Miles, J. W., Rairden, R., Shine, R. A., Tarbell, T. D., Title, A. M., Wolfson, C. J., Elmore, D. F., Norton, A. A., and Tomczyk, S. Design and Ground Calibration of the Helioseismic and Magnetic Imager (HMI) Instrument on the Solar Dynamics Observatory (SDO). Solar Phyics 275, 1-2 (Jan. 2012), 229–259.
 [29] Van Der Maaten, L., and Hinton, G. Visualizing data using t-sne. Journal of machine learning research 9 (2008), 2579–2625.
