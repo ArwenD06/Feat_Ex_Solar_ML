@@ -67,42 +67,38 @@ In the end, we have developed a framework that is easy to understand and computa
 ### Acknowledges
 We thank the SDO teams for providing the AIA data we used in our project. The dataset introduced in Galvez et al. [8] made our work possible, thus we want to thank all people involved in constructing this dataset. We are grateful for the guidance and assistance given by dr Panagiotis Gonidakis and Francesco Carella and their comments on this report to improve it.
 ## References
-1] Arvai, K. kneed, 2024. Accessed: 2024-11-18.
-[2] Berman, J. J. Chapter 4 - understanding your data. In Data Simplification, J. J.
-Berman, Ed. Morgan Kaufmann, Boston, 2016, pp. 135–187.
-[3] Berry, M. W., Mohamed, A., and Yap, B. W. Supervised and unsupervised
-learning for data science. Springer, 2019.
-[4] Burger, W., and Burge, M. Digital image processing : an algorithmic introduction, third edition. ed. Texts in computer science. Springer Nature Switzerland AG, Cham, Switzerland, 2022.
-[5] Delouille, V., Hofmeister, S. J., Reiss, M. A., Mampaey, B., Temmer, M., and Veronig, A. Chapter 15 - coronal holes detection using supervised classi- fication. In Machine Learning Techniques for Space Weather, E. Camporeale, S. Wing, and J. R. Johnson, Eds. Elsevier, 2018, pp. 365–395.
-[6] Eda Kavlakoglu, V. W. What is k-means clustering, 2024. Accessed: 2024-11-18.
-[7] Erdem, K. t-sne clearly explained, 2020. Retrieved from
-https://towardsdatascience.com/t-sne-clearly-explained-d84c537f53a.
-[8] Galvez, R., Fouhey, D. F., Jin, M., Szenicer, A., Mun ̃oz-Jaramillo, A., Cheung, M. C. M., Wright, P. J., Bobra, M. G., Liu, Y., Mason, J., and Thomas, R. A Machine-learning Data Set Prepared from the NASA Solar Dynamics Observatory Mission. Astrophysical Journal Supplement Series 242, 1 (May 2019), 7.
-[9] Giakoumoglou, N. G. pyfeats: Image feature extraction tool. Tech. rep., 7 2021. Accessed: 2024-11-16.
-[10] Glasbey, C. An analysis of histogram-based thresholding algorithms. CVGIP: Graphical Models and Image Processing 55, 6 (1993), 532–537.
-[11] Haigh, J. D., Lockwood, M. M., Giampapa, M. S. M. S., and fur Astro- physik und Astronomie., S. G. The sun, solar analogs and the climate, 1st ed. 2005. ed. Saas-Fee advanced course lecture notes ; 2004. Springer-Verlag, Berlin, 2005.
-[12] James Mason, P. W. Sdo machine learning dataset, 2024. Accessed: 2024-11-15. 87
-88 BIBLIOGRAPHY
-[13] Jolliffe, I. T., and Cadima, J. Principal component analysis: A review and recent developments. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 374, 2065 (Apr 2016), 20150202.
-[14] Lemen, J. R., Title, A. M., Akin, D. J., Boerner, P. F., Chou, C., Drake, J. F., Duncan, D. W., Edwards, C. G., Friedlaender, F. M., Heyman, G. F., Hurlburt, N. E., Katz, N. L., Kushner, G. D., Levay, M., Lindgren, R. W., Mathur, D. P., McFeaters, E. L., Mitchell, S., Rehse, R. A., Schrijver, C. J., Springer, L. A., Stern, R. A., Tarbell, T. D., Wuelser, J.-P., Wolfson, C. J., Yanari, C., Bookbinder, J. A., Cheimets, P. N., Caldwell, D., Deluca, E. E., Gates, R., Golub, L., Park, S., Podgor, W. A., Bush, R. I., Scherrer, P. H., Gummin, M. A., Smith, P., Auker, G., Jerram, P., Pool, P., Soufli, R., Windt, D. L., Beardsley, S., Clapp, M., Lang, J., and Waltham, N. The Atmospheric Imaging Assembly (AIA) on the Solar Dynamics Observatory (SDO). Solar Physics.
-[15] M Pelakhata, K Muraw, S. P. Generation of solar chromosphere heating and coronal outflows by two-fluid waves. Astronomy & Astrophysics (2023).
-[16] Mackovjak, v., Harman, M., Maslej-Kreˇsnˇa ́kova ́, V., and Butka, P. SCSS-Net: solar corona structures segmentation by deep learning. Monthly Notices of the Royal Astronomical Society 508, 3 (10 2021), 3111–3124.
-[17] Narayanan, A. S. An introduction to waves and oscillations in the sun, 1st ed. 2013. ed. Astronomy and astrophysics library. Springer, New York, 2013.
-[18] NASA. Anatomy of the sun, 2024. Public Domain.
-[19] NASA. Sdo — mission: Spacecraft, 2024. Accessed: 2024-11-16.
-[20] NASA/SDO. Sdo: The sun today, 2024. Public Domain.
-[21] Otsu, N. A threshold selection method from gray-level histograms. IEEE Transactions on Systems, Man, and Cybernetics 9, 1 (Jan 1979), 62–66.
-[22] Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., David, R., Weiss, A., and Dubourg, V. Scikit-learn: Machine learning in python, 2011. Accessed: 2024-11-23.
-[23] Pesnell, W. D., Thompson, B. J., and Chamberlin, P. C. The Solar Dynamics Observatory (SDO). Solar Physics 275, 1-2 (Jan. 2012), 3–15.
-[24] Piech, C. K means, 2013. Accessed: 2024-11-18.
-[25] Powers, D. M. W. Evaluation: from precision, recall and F-measure to ROC, in-
-formedness, markedness and correlation. arXiv e-prints (Oct. 2020), arXiv:2010.16061.
-[26] Reiss, M., Temmer, M., Rotter, T., Hofmeister, S. J., and Veronig, A. M. Identification of coronal holes and filament channels in SDO/AIA 193 ̊A images via geometrical classification methods. Central European Astrophysical Bulletin 38 (Jan. 2014), 95–104.
-[27] Satopaa, V., Albrecht, J., Irwin, D., and Raghavan, B. Finding a ”kneedle” in a haystack: Detecting knee points in system behavior. In 2011 31st International Conference on Distributed Computing Systems Workshops (June 2011), pp. 166–171.
-[28] Schou, J., Scherrer, P. H., Bush, R. I., Wachter, R., Couvidat, S., Rabello-Soares, M. C., Bogart, R. S., Hoeksema, J. T., Liu, Y., Duvall, T. L., Akin, D. J., Allard, B. A., Miles, J. W., Rairden, R., Shine, R. A., Tarbell, T. D., Title, A. M., Wolfson, C. J., Elmore, D. F., Norton, A. A., and Tomczyk, S. Design and Ground Calibration of the Helioseismic and Magnetic Imager (HMI) Instrument on the Solar Dynamics Observatory (SDO). Solar Phyics 275, 1-2 (Jan. 2012), 229–259.
-[29] Van Der Maaten, L., and Hinton, G. Visualizing data using t-sne. Journal of machine learning research 9 (2008), 2579–2625.
-[30] Wentzel, D. G. The restless sun. [Smithsonian library of the solar system]. Smithso- nian Institution Press, Washington, 1989.
-[31] Woods, T. N., Eparvier, F. G., Hock, R., Jones, A. R., Woodraska, D., Judge, D., Didkovsky, L., Lean, J., Mariska, J., Warren, H., McMullin, D., Chamberlin, P., Berthiaume, G., Bailey, S., Fuller-Rowell, T., So- jka, J., Tobiska, W. K., and Viereck, R. Extreme Ultraviolet Variability Experi- ment (EVE) on the Solar Dynamics Observatory (SDO): Overview of Science Objectives, Instrument Design, Data Products, and Model Developments. Solar Physics 275, 1-2 (Jan. 2012), 115–143.
-[32] Zarr-Developers. Zarr-python, 2024. Accessed: 2024-11-16.
-[33] Zhang, J., Temmer, M., Gopalswamy, N., Malandraki, O., Nitta, N. V., Patsourakos, S., Shen, F., Vrˇsnak, B., Wang, Y., Webb, D., Desai, M. I., Dissauer, K., Dresing, N., Dumbovic ́, M., Feng, X., Heinemann, S. G., Laurenza, M., Lugaz, N., and Zhuang, B. Earth-affecting solar transients: a review of progresses in solar cycle 24. Progress in earth and planetary science 8, 1 (2021), 56–56.
-[34] Zhang, T., Hao, Q., and Chen, P. F. Statistical analyses of solar prominences and active region features in 304  ̊a filtergrams detected via deep learning, 2024.
+1] Arvai, K. kneed, 2024. Accessed: 2024-11-18.  
+[2] Berman, J. J. Chapter 4 - understanding your data. In Data Simplification, J. J.  
+Berman, Ed. Morgan Kaufmann, Boston, 2016, pp. 135–187.  
+[3] Berry, M. W., Mohamed, A., and Yap, B. W. Supervised and unsupervised learning for data science. Springer, 2019.  
+[4] Burger, W., and Burge, M. Digital image processing : an algorithmic introduction, third edition. ed. Texts in computer science. Springer Nature Switzerland AG, Cham, Switzerland, 2022.  
+[5] Delouille, V., Hofmeister, S. J., Reiss, M. A., Mampaey, B., Temmer, M., and Veronig, A. Chapter 15 - coronal holes detection using supervised classification. In Machine Learning Techniques for Space Weather, E. Camporeale, S. Wing, and J. R. Johnson, Eds. Elsevier, 2018, pp. 365–395.  
+[6] Eda Kavlakoglu, V. W. What is k-means clustering, 2024. Accessed: 2024-11-18.  
+[7] Erdem, K. t-sne clearly explained, 2020. Retrieved from https://towardsdatascience.com/t-sne-clearly-explained-d84c537f53a.  
+[8] Galvez, R., Fouhey, D. F., Jin, M., Szenicer, A., Mun ̃oz-Jaramillo, A., Cheung, M. C. M., Wright, P. J., Bobra, M. G., Liu, Y., Mason, J., and Thomas, R. A Machine-learning Data Set Prepared from the NASA Solar Dynamics Observatory Mission. Astrophysical Journal Supplement Series 242, 1 (May 2019), 7.  
+[9] Giakoumoglou, N. G. pyfeats: Image feature extraction tool. Tech. rep., 7 2021. Accessed: 2024-11-16.  
+[10] Glasbey, C. An analysis of histogram-based thresholding algorithms. CVGIP: Graphical Models and Image Processing 55, 6 (1993), 532–537.  
+[11] Haigh, J. D., Lockwood, M. M., Giampapa, M. S. M. S., and fur Astro- physik und Astronomie., S. G. The sun, solar analogs and the climate, 1st ed. 2005. ed. Saas-Fee advanced course lecture notes ; 2004. Springer-Verlag, Berlin, 2005.  
+[12] James Mason, P. W. Sdo machine learning dataset, 2024. Accessed: 2024-11-15.  
+[13] Jolliffe, I. T., and Cadima, J. Principal component analysis: A review and recent developments. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 374, 2065 (Apr 2016), 20150202.  
+[14] Lemen, J. R., Title, A. M., Akin, D. J., Boerner, P. F., Chou, C., Drake, J. F., Duncan, D. W., Edwards, C. G., Friedlaender, F. M., Heyman, G. F., Hurlburt, N. E., Katz, N. L., Kushner, G. D., Levay, M., Lindgren, R. W., Mathur, D. P., McFeaters, E. L., Mitchell, S., Rehse, R. A., Schrijver, C. J., Springer, L. A., Stern, R. A., Tarbell, T. D., Wuelser, J.-P., Wolfson, C. J., Yanari, C., Bookbinder, J. A., Cheimets, P. N., Caldwell, D., Deluca, E. E., Gates, R., Golub, L., Park, S., Podgor, W. A., Bush, R. I., Scherrer, P. H., Gummin, M. A., Smith, P., Auker, G., Jerram, P., Pool, P., Soufli, R., Windt, D. L., Beardsley, S., Clapp, M., Lang, J., and Waltham, N. The Atmospheric Imaging Assembly (AIA) on the Solar Dynamics Observatory (SDO). Solar Physics. 
+[15] M Pelakhata, K Muraw, S. P. Generation of solar chromosphere heating and coronal outflows by two-fluid waves. Astronomy & Astrophysics (2023).  
+[16] Mackovjak, v., Harman, M., Maslej-Kreˇsnˇa ́kova ́, V., and Butka, P. SCSS-Net: solar corona structures segmentation by deep learning. Monthly Notices of the Royal Astronomical Society 508, 3 (10 2021), 3111–3124.  
+[17] Narayanan, A. S. An introduction to waves and oscillations in the sun, 1st ed. 2013. ed. Astronomy and astrophysics library. Springer, New York, 2013.  
+[18] NASA. Anatomy of the sun, 2024. Public Domain.  
+[19] NASA. Sdo — mission: Spacecraft, 2024. Accessed: 2024-11-16.  
+[20] NASA/SDO. Sdo: The sun today, 2024. Public Domain.  
+[21] Otsu, N. A threshold selection method from gray-level histograms. IEEE Transactions on Systems, Man, and Cybernetics 9, 1 (Jan 1979), 62–66.  
+[22] Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., David, R., Weiss, A., and Dubourg, V. Scikit-learn: Machine learning in python, 2011. Accessed: 2024-11-23.  
+[23] Pesnell, W. D., Thompson, B. J., and Chamberlin, P. C. The Solar Dynamics Observatory (SDO). Solar Physics 275, 1-2 (Jan. 2012), 3–15.  
+[24] Piech, C. K means, 2013. Accessed: 2024-11-18.  
+[25] Powers, D. M. W. Evaluation: from precision, recall and F-measure to ROC, informedness, markedness and correlation. arXiv e-prints (Oct. 2020), arXiv:2010.16061.  
+[26] Reiss, M., Temmer, M., Rotter, T., Hofmeister, S. J., and Veronig, A. M. Identification of coronal holes and filament channels in SDO/AIA 193 ̊A images via geometrical classification methods. Central European Astrophysical Bulletin 38 (Jan. 2014), 95–104.  
+[27] Satopaa, V., Albrecht, J., Irwin, D., and Raghavan, B. Finding a ”kneedle” in a haystack: Detecting knee points in system behavior. In 2011 31st International Conference on Distributed Computing Systems Workshops (June 2011), pp. 166–171.  
+[28] Schou, J., Scherrer, P. H., Bush, R. I., Wachter, R., Couvidat, S., Rabello-Soares, M. C., Bogart, R. S., Hoeksema, J. T., Liu, Y., Duvall, T. L., Akin, D. J., Allard, B. A., Miles, J. W., Rairden, R., Shine, R. A., Tarbell, T. D., Title, A. M., Wolfson, C. J., Elmore, D. F., Norton, A. A., and Tomczyk, S. Design and Ground Calibration of the Helioseismic and Magnetic Imager (HMI) Instrument on the Solar Dynamics Observatory (SDO). Solar Phyics 275, 1-2 (Jan. 2012), 229–259.  
+[29] Van Der Maaten, L., and Hinton, G. Visualizing data using t-sne. Journal of machine learning research 9 (2008), 2579–2625.  
+[30] Wentzel, D. G. The restless sun. [Smithsonian library of the solar system]. Smithso- nian Institution Press, Washington, 1989.  
+[31] Woods, T. N., Eparvier, F. G., Hock, R., Jones, A. R., Woodraska, D., Judge, D., Didkovsky, L., Lean, J., Mariska, J., Warren, H., McMullin, D., Chamberlin, P., Berthiaume, G., Bailey, S., Fuller-Rowell, T., So- jka, J., Tobiska, W. K., and Viereck, R. Extreme Ultraviolet Variability Experi- ment (EVE) on the Solar Dynamics Observatory (SDO): Overview of Science Objectives, Instrument Design, Data Products, and Model Developments. Solar Physics 275, 1-2 (Jan. 2012), 115–143.  
+[32] Zarr-Developers. Zarr-python, 2024. Accessed: 2024-11-16.  
+[33] Zhang, J., Temmer, M., Gopalswamy, N., Malandraki, O., Nitta, N. V., Patsourakos, S., Shen, F., Vrˇsnak, B., Wang, Y., Webb, D., Desai, M. I., Dissauer, K., Dresing, N., Dumbovic ́, M., Feng, X., Heinemann, S. G., Laurenza, M., Lugaz, N., and Zhuang, B. Earth-affecting solar transients: a review of progresses in solar cycle 24. Progress in earth and planetary science 8, 1 (2021), 56–56.  
+[34] Zhang, T., Hao, Q., and Chen, P. F. Statistical analyses of solar prominences and active region features in 304  ̊a filtergrams detected via deep learning, 2024.  
