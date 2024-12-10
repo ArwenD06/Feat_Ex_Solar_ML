@@ -38,11 +38,10 @@ import statistics
 
 
 
-# ## Saving and importing data
+### Saving and importing data
 
 # We saved out data using following command.
 
-# In[2]:
 
 
 #np.save("2011_05", selected_header)
@@ -71,7 +70,7 @@ plt.axis('off')
 plt.imshow(image,origin='lower', vmin=0,vmax=1000, cmap='sdoaia193')
 
 
-# ## Functions used 
+### Functions used 
 
 def different_masks(gray_image):   
     t1 = ski.filters.threshold_otsu(gray_image)
