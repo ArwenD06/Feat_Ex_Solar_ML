@@ -616,7 +616,7 @@ for date in images:
 
     bin_high_dice.append(all_dice[0]) 
     bin_low_dice.append(all_dice[1])
-    bin_tot_dice.append(all_jaccard[2]) 
+    bin_tot_dice.append(all_dice[2]) 
 
     bin_high_jacc.append(all_jaccard[0]) 
     bin_low_jacc.append(all_jaccard[1]) 
@@ -634,19 +634,22 @@ methods = ["Otsu", "Multiple Otsu Lower without Background", "Multiple Otsu High
 ```
 
 ```python
+rn = len(total)
+
 for key in scores:
     index = methods.index(key)
+    print(index)
     if key in ['Otsu', 'Multiple Otsu Higher', 'Yen', 'Li']:
-        lst_d = [bin_high_dice[i][index] for i in range(0,5)]
-        lst_j = [bin_high_jacc[i][index] for i in range(0,3)]
+        lst_d = [bin_high_dice[i][index] for i in range(0,rn)]
+        lst_j = [bin_high_jacc[i][index] for i in range(0,rn)]
         scores[key] = [round(statistics.mean(lst_d), 6), round(statistics.mean(lst_j), 6)]
     elif key in ['Minimum without Background', 'Multiple Otsu Lower without Background']:
-        lst_d = [bin_low_dice[i][index] for i in range(0,3)]
-        lst_j = [bin_low_jacc[i][index] for i in range(0,3)]
+        lst_d = [bin_low_dice[i][index] for i in range(0,rn)]
+        lst_j = [bin_low_jacc[i][index] for i in range(0,rn)]
         scores[key] = [round(statistics.mean(lst_d), 6), round(statistics.mean(lst_j), 6)]
     else:
-        lst_d = [bin_tot_dice[i][index] for i in range(0,3)]
-        lst_j = [bin_tot_jacc[i][index] for i in range(0,3)]
+        lst_d = [bin_tot_dice[i][index] for i in range(0,rn)]
+        lst_j = [bin_tot_jacc[i][index] for i in range(0,rn)]
         scores[key] = [round(statistics.mean(lst_d), 6), round(statistics.mean(lst_j), 6)]
 ```
 
