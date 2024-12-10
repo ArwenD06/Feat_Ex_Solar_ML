@@ -72,6 +72,21 @@ plt.imshow(image,origin='lower', vmin=0,vmax=1000, cmap='sdoaia193')
 # Functions 
 
 ### different_masks(gray_image)
+- Purpose: making different segmentations based on a grey scale image
+
+- Input:
+    * gray_image -> grey scale image you want to make segmentations of
+
+- Output:
+    * mask_otsu -> binary mask made by Otsu's method
+    * mask_multi_otsu_l -> binary mask made by the first value of Multiple Otsu
+    * mask_multi_otsu_h -> binary mask made by the last value of Multiple Otsu
+    * mask_multi_otsu -> binary mask of the first and last value of Multiple Otsu combined
+    * mask_yen -> binary mask made by Yen's method
+    * mask_li -> binary mask made by Li's method
+    * mask_min -> binary mask made by the minimum method
+
+
 ```python
 def different_masks(gray_image):   
     t1 = ski.filters.threshold_otsu(gray_image)
