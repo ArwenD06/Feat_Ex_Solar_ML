@@ -192,26 +192,27 @@ def metrics(binary_mask1, binary_mask2l, binary_mask2h, binary_mask2,
     * prediction -> list with numbers, prediction[i] = the cluster to which i belongs  
     * vector_final -> feature vector  
     * sample_numbers -> list with the sample numbers
+    * k -> 
 
 - Output:
     * klusters -> list with k sublists (k = number of klusters), every sublist j contains tuples for which the first element is the sample number of the 'blob', and the second element is the total number of the blob
     * feats -> list with k sublists, every sublist j contains the features of the 'blobs' that are part of kluster j
 
 ```python
-def meaning(prediction, vector_final, sample_numbers):
+def meaning(prediction, vector_final, sample_numbers, k):
     num_klus = max(prediction) +1
     nums = list(set(prediction))
     
     klusters = [ [] for _ in range(num_klus)]
     feats = [ [] for _ in range(num_klus)]
     
-    i = 100
+    j = k
     for el in prediction:
         for num in nums:
             if el == num:
-                klusters[num].append((sample_numbers[i], i))
-                feats[num].append(vector_final[i])
-                i=i+1
+                klusters[num].append((sample_numbers[j], j))
+                feats[num].append(vector_final[j])
+                j=j+1
 
     return klusters, feats
 ```
@@ -308,7 +309,7 @@ circle1 = cv.imread('circle.png', 0)
 circle = circle1 > 0.5
 ```
 ### making_mask(gray_image)
-- Purpose: making the binary mask of a sample
+- Purpose: making the binary mask of a sample, using Multiple Otsu's method. Binary_mask is the mask for the coronal holes and active regions combined, binary_maskl is the binary mask for the coronal holes only, and binary_maskh is the binary masj for active regions only, if you want to calculate the binary mask for the coronal holes or active regions seperatly, change the return statement to either binary_maskl or binary_maskh.
 
 - Input:
     * gray_image -> the grey-scale image you want to make a mask of
@@ -319,7 +320,6 @@ circle = circle1 > 0.5
 def making_mask(gray_image):
     t = ski.filters.threshold_multiotsu(gray_image, 5)
 
-    # create a binary mask with the threshold found by Otsu's method
     binary_maskla = gray_image < t[0]
     binary_maskl = binary_maskla*circle
     binary_maskh = gray_image > t[-1]
@@ -383,18 +383,18 @@ def finding_slices(w_noise):
 
 ```python
 def comps(sliced, gray_image, w_noise):
-    piece = w_noise[sliced] # binair gesliced masker
+    piece = w_noise[sliced]
 
     segmented = gray_image.copy()
     segmented[~binary_mask] = 0
 
-    selection = segmented[sliced] # geslicede gray-scale image, nullen op de stukken die we niet nodig hebben
+    selection = segmented[sliced]
     return piece, selection
 ```
 
 ### roundness(area, perimeter)
-- Purpose: calculation the roundness of a 'blob'
-roundness = (4*pi*area)/perimeter^2
+- Purpose: calculation the roundness of a 'blob'  
+roundness = $(4*\pi*area)/perimeter^2$
 
 - Input:
     * area -> the area of the 'blob'
@@ -479,27 +479,31 @@ def features(selection, piece):
     return feature
 ```
 
+# Calculating the feature vector
 
+Choose how many samples a year you want.
+```python
+a = 3
+```
+
+Making a list with the names of the samples you want to use.
 ```python
 images = []
-total = []
-bina = []
-binb = []
+headers = []
 i=0
-j=1
+
 while i < 10:
-    tot = '201' + str(i) + '_total' + str(j) + '.png'
-    bin1a = '201' + str(i) + '_bin' + str(j) + 'a.png'
-    bin1b = '201' + str(i) + '_bin' + str(j) + 'b.png'
-    image = '201' + str(i) + '_p0' + str(j) + '.npy'
-    total.append(tot)
-    bina.append(bin1a)
-    binb.append(bin1b)
-    images.append(image)
+    j=1
+    while j < a:
+        headr = '201' + str(i) + '_0' + str(j) + '.npy'
+        image = '201' + str(i) + '_p0' + str(j) + '.npy'
+        headers.append(headr)
+        images.append(image)
+        j=j+1
     i=i+1
 ```
 
-
+List of the names of all of the used features.
 ```python
 names = ['Mean', 'Variance', 'Energy', 'Entropy', 'Minimal Grey Level', 'Maximal Grey Level', 'ASM', 'Contrast',
          'Correlation', 'Sum Of Squares Variance', 'Inverse Difference Moment', 'Sum Average', 'Sum Variance', 'Sum Entropy',
@@ -507,6 +511,7 @@ names = ['Mean', 'Variance', 'Energy', 'Entropy', 'Minimal Grey Level', 'Maximal
          'Eccentricity', 'Extent', 'Solidity', 'Roundness', 'Elongation', 'Ratio perimeter and area']
 ```
 
+Calculating the feature vector.
 ```python
 masks = []
 all_features = []
@@ -525,19 +530,16 @@ for date in images:
     binary_mask = making_mask(gray_image)
     bin_w_noise = make_bin_without_noise(binary_mask)
     masks.append(bin_w_noise)
-    print('1')
-    # voor elke slice willen we nu de features gaan berekenen, dit dan ook nog voor elk masker
-    # dus loopen over elk masker, dan loopen over elke slice
-    slices = finding_slices(bin_w_noise)      #zoek slices
+    slices = finding_slices(bin_w_noise)
     i=i+1
     for sliced in slices:
-        piece, selection = comps(sliced, gray_image, bin_w_noise)   #maak componenten voor feature berekening
+        piece, selection = comps(sliced, gray_image, bin_w_noise)
         if len(piece)<4:
             continue
         if len(piece[0])<4:
             continue
         try:
-            feature = features(selection, piece)                #bereken features
+            feature = features(selection, piece)
             contour = finding_contour(piece, sliced)
             contours.append(contour)
             all_features.append(feature)
@@ -545,7 +547,7 @@ for date in images:
             used_slices.append(sliced)
         except np.linalg.LinAlgError:
             pass
-    print('2') 
+    print('Sample ' + str(i-1) + ' done')  
 ```
 
 # Histogram of a single sample
@@ -564,7 +566,6 @@ plt.savefig('img.jpg', bbox_inches='tight', pad_inches=0)
 sun = iio.imread('img.jpg')
 gray_image = ski.color.rgb2gray(sun)
 
-# show the histogram of the grayscale image
 histogram, bin_edges = np.histogram(gray_image, bins=256, range=(0.0, 1.0))
 fig, ax = plt.subplots()
 ax.plot(bin_edges[0:-1], histogram)
@@ -581,7 +582,25 @@ ski.filters.try_all_threshold(gray_image, figsize=(8, 5), verbose=True)
 
 # Segmentation Evaluation
 
-Can be combined with the making of the feature vector, but the following code takes a while to run, so if it's not needed, you can skip the next cell.
+Can be combined with the making of the feature vector, but the following code takes a while to run, so if it's not needed, you can skip the next two cells.
+```python
+imgs = []
+total = []
+bina = []
+binb = []
+i=0
+j=1
+while i < 10:
+    tot = '201' + str(i) + '_total' + str(j) + '.png'
+    bin1a = '201' + str(i) + '_bin' + str(j) + 'a.png'
+    bin1b = '201' + str(i) + '_bin' + str(j) + 'b.png'
+    image = '201' + str(i) + '_p0' + str(j) + '.npy'
+    total.append(tot)
+    bina.append(bin1a)
+    binb.append(bin1b)
+    imgs.append(image)
+    i=i+1
+```
 
 ```python
 bin_high_dice = []
@@ -593,8 +612,7 @@ bin_tot_jacc = []
 
 i=0
 
-for date in images:
-    print(i)
+for date in imgs:
     image = np.load(date, allow_pickle=True)
 
     plt.imsave('img.png', image, origin='lower', vmin=0,vmax=1000, cmap='sdoaia193', dpi=100)
@@ -638,7 +656,6 @@ rn = len(total)
 
 for key in scores:
     index = methods.index(key)
-    print(index)
     if key in ['Otsu', 'Multiple Otsu Higher', 'Yen', 'Li']:
         lst_d = [bin_high_dice[i][index] for i in range(0,rn)]
         lst_j = [bin_high_jacc[i][index] for i in range(0,rn)]
@@ -663,7 +680,7 @@ Standardising the data:
 ```python
 feats_all = all_features.copy()
 stan = StandardScaler().fit(feats_all)
-feats_stan_all = stan.transform(feats_all) #full standardized feature vector
+feats_stan_all = stan.transform(feats_all)
 ```
 Removing correlated features of original feature vector:
 
@@ -726,7 +743,6 @@ X_c = feats_final.copy()
 
 tsne = TSNE(n_components=2, random_state=100)
 
-# Fit and transform the data
 X_tsne = tsne.fit_transform(X_c)
 ```
 
@@ -734,8 +750,6 @@ X_tsne = tsne.fit_transform(X_c)
 Y = sample_number
 
 plt.figure(figsize=(8, 6))
-#scatter = plt.scatter(X_tsne_all[:, 0], X_tsne_all[:, 1], c='0.1', cmap='viridis')
-#scatter1 = plt.scatter(X_tsne_orig[:, 0], X_tsne_orig[:, 1], c='0.5', cmap='viridis')
 scatter2 = plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=Y, cmap='viridis')
 
 plt.legend(*scatter2.legend_elements(num=19), title="Sample Number",bbox_to_anchor=(1.25, 1), loc='upper right')
@@ -752,7 +766,6 @@ X_comp1 = feats_final.copy()
 
 pca = PCA(n_components=2, random_state=56)
 
-# Fit and transform the data
 X_pca = pca.fit_transform(X_comp1)
 ```
 
@@ -760,8 +773,6 @@ X_pca = pca.fit_transform(X_comp1)
 Y = sample_number
 
 plt.figure(figsize=(8, 6))
-#scatter = plt.scatter(x=X_pca_all[:, 0], y=X_pca_all[:, 1], c='0.1')
-#scatter1 = plt.scatter(x=X_pca_orig[:, 0], y=X_pca_orig[:, 1], c='0.5')
 scatter2 = plt.scatter(x=X_pca[:, 0], y=X_pca[:, 1], c=Y)
 
 plt.legend(*scatter2.legend_elements(num=19), title="Sample Number", bbox_to_anchor=(1.25, 1), loc='upper right')
@@ -773,20 +784,21 @@ plt.show()
 
 # K-means
 
-Choose the number of clusters you want:
+Choose number of clusters n and how many training data you want k (k = where you want the training data to stop, thus k-1 is the last element of your training data).
 ```python
 n = 5
+k = 100
 ```
 
 ## t-SNE
 ```python
-trainData = X_tsne[:100]   # Momenteel gwn random om te testen
+trainData = X_tsne[:k]
 kmeans = KMeans(n_clusters=n, random_state=3).fit(trainData)
-prediction_tsne = kmeans.predict(X_tsne[100:])
+prediction_tsne = kmeans.predict(X_tsne[k:])
 
 plt.figure(figsize=(8, 6))
-scatter = plt.scatter(X_tsne[100:, 0], X_tsne[100:, 1], c=prediction_tsne, cmap='gist_rainbow')
-#scatter2 = plt.scatter(X_tsne[:100, 0], X_tsne[:100, 1], c=kmeans.labels_, cmap='viridis')
+scatter = plt.scatter(X_tsne[k:, 0], X_tsne[k:, 1], c=prediction_tsne, cmap='gist_rainbow')
+#scatter2 = plt.scatter(X_tsne[:k, 0], X_tsne[:k, 1], c=kmeans.labels_, cmap='viridis')
 
 
 plt.legend(*scatter.legend_elements(), title="Label")
@@ -798,13 +810,13 @@ plt.show()
 
 ## PCA
 ```python
-trainData_pca = X_pca[:100]   # Momenteel gwn random om te testen
+trainData_pca = X_pca[:k]
 kmeans = KMeans(n_clusters=n, random_state=57).fit(trainData_pca)
-prediction_pca = kmeans.predict(X_pca[100:])
+prediction_pca = kmeans.predict(X_pca[k:])
 
 plt.figure(figsize=(8, 6))
-scatter = plt.scatter(X_pca[100:, 0], X_pca[100:, 1], c=prediction_pca, cmap='gist_rainbow')
-#scatter2 = plt.scatter(X_pca[:100, 0], X_pca[:100, 1], c=kmeans.labels_, cmap='viridis')
+scatter = plt.scatter(X_pca[k:, 0], X_pca[k:, 1], c=prediction_pca, cmap='gist_rainbow')
+#scatter2 = plt.scatter(X_pca[:k, 0], X_pca[:k, 1], c=kmeans.labels_, cmap='viridis')
 
 
 plt.legend(*scatter.legend_elements(), title="Label")
@@ -823,7 +835,7 @@ prediction = prediction_pca
 
 ## Histograms
 ```python
-_, feats = meaning(prediction, feats_final, sample_number)
+_, feats = meaning(prediction, feats_final, sample_number, k)
 alp = [1, 0.85, 0.65, 0.45, 0.25, 0.1]
 
 plt.figure(figsize=(10, 15)) 
@@ -840,7 +852,7 @@ for i in range(0, 22):
 
 ## Numerical
 ```python
-_, feats = meaning(prediction, feats_final, sample_number)
+_, feats = meaning(prediction, feats_final, sample_number, k)
 
 means = []
 ranges = []
@@ -873,7 +885,7 @@ sun = iio.imread('img1.png')
 
 cmap = cm.get_cmap('gist_rainbow', n)
 
-klusters, _  = meaning(prediction, vector_non_stan, sample_number)
+klusters, _  = meaning(prediction, vector_non_stan, sample_number, k)
 
 f, (ax1, ax2) = plt.subplots(1, 2)
 
@@ -936,6 +948,8 @@ pca = PCA(n_components=3)
 X_pca_3d = pca.fit_transform(X_c3)
 ```
 ```python
+Y = sample_number
+
 fig_pca = px.scatter_3d(X_pca_3d,
                     x=X_pca_3d[:,0],
                     y=X_pca_3d[:,1],
@@ -943,7 +957,7 @@ fig_pca = px.scatter_3d(X_pca_3d,
                     title="PCA Visualization of Dataset",
                     opacity=1,
                     color=Y,
-                    size= [1]*len(X_pca),
+                    size= [1]*len(X_pca_3d),
                     labels={'x':'PCA component 1','y':'PCA component 2','z':'PCA component 3'},
                     color_continuous_scale='viridis'
                     )
@@ -961,11 +975,12 @@ X_c_3 = feats_final.copy()
 
 tsne = TSNE(n_components=3, random_state=42) 
 
-# Fit and transform the data
 X_tsne_3d = tsne.fit_transform(X_c_3)
 ```
 
 ```python
+Y = sample_number
+
 fig_tsne = px.scatter_3d(X_tsne_3d,
                     x=X_tsne_3d[:,0],
                     y=X_tsne_3d[:,1],
@@ -973,7 +988,7 @@ fig_tsne = px.scatter_3d(X_tsne_3d,
                     title="t-SNE Visualization of Dataset",
                     opacity=1,
                     color=Y,
-                    size= [1]*len(X_tsne),
+                    size= [1]*len(X_tsne_3d),
                     labels={'x':'t-SNE component 1','y':'t-SNE component 2','z':'t-SNE component 3'},
                     color_continuous_scale='viridis'
                     )
@@ -988,6 +1003,8 @@ fig_tsne.write_html('tsne_final.html')
 ## 3D plot correlation
 ```python
 vector = feats_stan_all
+
+Y = sample_number
 
 fig_corr = px.scatter_3d(vector,
                     x=vector[:,3],
